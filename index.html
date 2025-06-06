@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindEase - Teen Mental Wellness</title>
+    <meta name="description" content="A calming space for teen mental wellness with AI chat, mood tracking, journaling, and meditation">
+    <meta name="theme-color" content="#E8F4FD">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/styles/main.css" as="style">
+    <link rel="preload" href="/src/js/app.js" as="script">
+    
+    <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <div class="loading-logo">🌸</div>
+                <h1>MindEase</h1>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Main App Container -->
+        <div id="main-app" class="main-app hidden">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-content">
+                    <h1 class="app-title">
+                        <span class="logo">🌸</span>
+                        MindEase
+                    </h1>
+                    <div class="header-actions">
+                        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+                            <span class="theme-icon">🌙</span>
+                        </button>
+                        <button id="settings-btn" class="icon-btn" aria-label="Settings">
+                            <span>⚙️</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation -->
+            <nav class="bottom-nav">
+                <button class="nav-item active" data-tab="chat">
+                    <span class="nav-icon">💬</span>
+                    <span class="nav-label">Chat</span>
+                </button>
+                <button class="nav-item" data-tab="mood">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Mood</span>
+                </button>
+                <button class="nav-item" data-tab="journal">
+                    <span class="nav-icon">📔</span>
+                    <span class="nav-label">Journal</span>
+                </button>
+                <button class="nav-item" data-tab="meditation">
+                    <span class="nav-icon">🧘</span>
+                    <span class="nav-label">Meditate</span>
+                </button>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Chat Tab -->
+                <section id="chat-tab" class="tab-content active">
+                    <div class="chat-container">
+                        <div id="chat-messages" class="chat-messages">
+                            <div class="welcome-message">
+                                <div class="bot-avatar">🌸</div>
+                                <div class="message-content">
+                                    <p>Hi there! I'm here to listen and support you. How are you feeling today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <div class="input-wrapper">
+                                <textarea id="chat-input" placeholder="Share what's on your mind..." rows="1"></textarea>
+                                <button id="send-btn" class="send-btn" disabled>
+                                    <span>➤</span>
+                                </button>
+                            </div>
+                            <div id="offline-notice" class="offline-notice hidden">
+                                <span>🔌</span> AI chat requires internet connection
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mood Tab -->
+                <section id="mood-tab" class="tab-content">
+                    <div class="mood-container">
+                        <div class="mood-tracker">
+                            <h2>How are you feeling today?</h2>
+                            <div class="mood-selector">
+                                <div class="mood-options">
+                                    <button class="mood-btn" data-mood="1">😢</button>
+                                    <button class="mood-btn" data-mood="2">😔</button>
+                                    <button class="mood-btn" data-mood="3">😐</button>
+                                    <button class="mood-btn" data-mood="4">🙂</button>
+                                    <button class="mood-btn" data-mood="5">😊</button>
+                                </div>
+                                <div class="mood-labels">
+                                    <span>Very Low</span>
+                                    <span>Low</span>
+                                    <span>Neutral</span>
+                                    <span>Good</span>
+                                    <span>Great</span>
+                                </div>
+                            </div>
+                            <button id="save-mood" class="primary-btn" disabled>Save Today's Mood</button>
+                        </div>
+                        
+                        <div class="mood-history">
+                            <h3>Your Mood Journey</h3>
+                            <div id="mood-chart" class="mood-chart">
+                                <div class="no-data">
+                                    <span>📈</span>
+                                    <p>Start tracking your mood to see patterns over time</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Journal Tab -->
+                <section id="journal-tab" class="tab-content">
+                    <div class="journal-container">
+                        <div class="journal-header">
+                            <h2>Your Journal</h2>
+                            <button id="new-entry-btn" class="primary-btn">
+                                <span>✏️</span> New Entry
+                            </button>
+                        </div>
+                        
+                        <div id="journal-entries" class="journal-entries">
+                            <div class="no-entries">
+                                <span>📔</span>
+                                <p>Your thoughts and reflections will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Meditation Tab -->
+                <section id="meditation-tab" class="tab-content">
+                    <div class="meditation-container">
+                        <h2>Meditation Space</h2>
+                        <div class="meditation-grid">
+                            <div class="meditation-card" data-meditation="breathing">
+                                <div class="meditation-icon">🫁</div>
+                                <h3>Deep Breathing</h3>
+                                <p>5-minute guided breathing exercise</p>
+                                <button class="meditation-btn">Start</button>
+                            </div>
+                            
+                            <div class="meditation-card" data-meditation="mindfulness">
+                                <div class="meditation-icon">🧘‍♀️</div>
+                                <h3>Mindfulness</h3>
+                                <p>10-minute present moment awareness</p>
+                                <button class="meditation-btn">Start</button>
+                            </div>
+                            
+                            <div class="meditation-card" data-meditation="gratitude">
+                                <div class="meditation-icon">🙏</div>
+                                <h3>Gratitude</h3>
+                                <p>7-minute gratitude reflection</p>
+                                <button class="meditation-btn">Start</button>
+                            </div>
+                            
+                            <div class="meditation-card" data-meditation="sleep">
+                                <div class="meditation-icon">🌙</div>
+                                <h3>Sleep Prep</h3>
+                                <p>15-minute wind-down routine</p>
+                                <button class="meditation-btn">Start</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Modals -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="close-btn" data-modal="settings">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h3>AI Configuration</h3>
+                        <p class="settings-note">Your API keys are stored locally and never shared</p>
+                        
+                        <div class="api-key-group">
+                            <label for="cohere-key">Cohere API Key</label>
+                            <input type="password" id="cohere-key" placeholder="Enter your Cohere API key">
+                            <small>Get your key at <a href="https://dashboard.cohere.com/api-keys" target="_blank">dashboard.cohere.com</a></small>
+                        </div>
+                        
+                        <div class="api-key-group">
+                            <label for="openrouter-key">OpenRouter API Key</label>
+                            <input type="password" id="openrouter-key" placeholder="Enter your OpenRouter API key">
+                            <small>Get your key at <a href="https://openrouter.ai" target="_blank">openrouter.ai</a></small>
+                        </div>
+                        
+                        <div class="api-key-group">
+                            <label for="huggingface-key">HuggingFace API Key</label>
+                            <input type="password" id="huggingface-key" placeholder="Enter your HuggingFace API key">
+                            <small>Get your key at <a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co</a></small>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Cloud Sync (Optional)</h3>
+                        <div id="auth-section">
+                            <div class="auth-form">
+                                <input type="email" id="auth-email" placeholder="Email">
+                                <input type="password" id="auth-password" placeholder="Password">
+                                <div class="auth-buttons">
+                                    <button id="login-btn" class="secondary-btn">Login</button>
+                                    <button id="signup-btn" class="secondary-btn">Sign Up</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sync-section" class="hidden">
+                            <p>Logged in successfully! Your data will sync automatically.</p>
+                            <button id="logout-btn" class="secondary-btn">Logout</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="primary-btn" data-modal="settings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="journal-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="journal-modal-title">New Journal Entry</h2>
+                    <button class="close-btn" data-modal="journal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="journal-title" placeholder="Entry title (optional)">
+                    <textarea id="journal-content" placeholder="What's on your mind today?" rows="10"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button id="delete-entry" class="danger-btn hidden">Delete</button>
+                    <div class="modal-actions">
+                        <button class="secondary-btn" data-modal="journal">Cancel</button>
+                        <button id="save-entry" class="primary-btn">Save Entry</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="meditation-modal" class="modal hidden">
+            <div class="modal-content meditation-modal">
+                <div class="modal-header">
+                    <h2 id="meditation-title">Meditation</h2>
+                    <button class="close-btn" data-modal="meditation">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="meditation-content" class="meditation-content">
+                        <!-- Meditation content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Install Prompt -->
+        <div id="install-prompt" class="install-prompt hidden">
+            <div class="install-content">
+                <span class="install-icon">📱</span>
+                <div class="install-text">
+                    <h3>Install MindEase</h3>
+                    <p>Add to your home screen for quick access</p>
+                </div>
+                <div class="install-actions">
+                    <button id="install-dismiss" class="secondary-btn">Not now</button>
+                    <button id="install-accept" class="primary-btn">Install</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/app.js"></script>
+</body>
+</html>
