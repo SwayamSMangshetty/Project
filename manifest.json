@@ -1,14 +1,16 @@
 {
-  "name": "MindEase - Teen Mental Wellness",
+  "name": "MindEase - Your Personal Mental Wellness Sanctuary",
   "short_name": "MindEase",
-  "description": "A calming space for teen mental wellness with AI chat, mood tracking, journaling, and meditation",
+  "description": "A calming sanctuary for Gen Z students experiencing academic stress. AI chat, mood tracking, journaling, and meditation in one beautiful app.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#E8F4FD",
-  "theme_color": "#E8F4FD",
+  "background_color": "#FEFEFE",
+  "theme_color": "#6C63FF",
   "orientation": "portrait-primary",
-  "categories": ["health", "lifestyle", "wellness"],
+  "categories": ["health", "lifestyle", "wellness", "education", "productivity"],
   "lang": "en",
+  "scope": "/",
+  "id": "mindease-pwa",
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -61,16 +63,83 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshots/mobile-1.png",
+      "src": "/screenshots/mobile-chat.png",
       "sizes": "390x844",
       "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "label": "AI Chat Interface"
     },
     {
-      "src": "/screenshots/desktop-1.png",
-      "sizes": "1280x720",
+      "src": "/screenshots/mobile-mood.png",
+      "sizes": "390x844", 
       "type": "image/png",
-      "form_factor": "wide"
+      "form_factor": "narrow",
+      "label": "Mood Tracking"
+    },
+    {
+      "src": "/screenshots/desktop-dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png", 
+      "form_factor": "wide",
+      "label": "Dashboard Overview"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Chat",
+      "short_name": "Chat",
+      "description": "Start a conversation with your AI companion",
+      "url": "/?tab=chat",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Log Mood",
+      "short_name": "Mood",
+      "description": "Track how you're feeling today",
+      "url": "/?tab=mood",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png", 
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "New Journal Entry",
+      "short_name": "Journal",
+      "description": "Write in your personal journal",
+      "url": "/?tab=journal&action=new",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Meditate",
+      "short_name": "Meditate", 
+      "description": "Start a guided meditation session",
+      "url": "/?tab=meditation",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
 }
