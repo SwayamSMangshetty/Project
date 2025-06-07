@@ -57,7 +57,12 @@ export class PWAManager {
         });
         
       } catch (error) {
-        console.error('Service Worker registration failed:', error);
+        // Check if this is a known StackBlitz limitation
+        if (error.message && error.message.includes('Service Workers are not yet supported on StackBlitz')) {
+          console.warn('Service Worker registration skipped: Not supported in StackBlitz environment');
+        } else {
+          console.error('Service Worker registration failed:', error);
+        }
       }
     }
   }
