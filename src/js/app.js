@@ -1,5 +1,5 @@
 // MindEase - Teen Mental Wellness PWA
-// Enhanced main application with comprehensive mobile UI
+// Enhanced main application with clean white & green UI
 
 import { StorageManager } from './storage.js';
 import { AIManager } from './ai.js';
@@ -36,9 +36,6 @@ class MindEaseApp {
       
       // Set up event listeners
       this.setupEventListeners();
-      
-      // Initialize theme
-      this.initializeTheme();
       
       // Setup responsive behavior
       this.setupResponsiveFeatures();
@@ -92,11 +89,6 @@ class MindEaseApp {
           this.announceTabChange(tab);
         }
       });
-    });
-    
-    // Theme toggle with system preference detection
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-      this.toggleTheme();
     });
     
     // Settings modal
@@ -573,46 +565,6 @@ class MindEaseApp {
     }
   }
   
-  initializeTheme() {
-    const savedTheme = this.storage.get('theme');
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const theme = savedTheme || systemTheme;
-    
-    this.setTheme(theme);
-    
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (!this.storage.get('theme')) {
-        this.setTheme(e.matches ? 'dark' : 'light');
-      }
-    });
-  }
-  
-  toggleTheme() {
-    const currentTheme = document.documentElement.dataset.theme || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    this.setTheme(newTheme);
-    this.storage.set('theme', newTheme);
-    this.triggerHapticFeedback('light');
-    
-    // Announce theme change
-    this.showNotification(`Switched to ${newTheme} theme`, 'info');
-  }
-  
-  setTheme(theme) {
-    document.documentElement.dataset.theme = theme;
-    const themeIcon = document.querySelector('.theme-icon');
-    if (themeIcon) {
-      themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
-    }
-    
-    // Update meta theme-color
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    if (metaThemeColor) {
-      metaThemeColor.content = theme === 'light' ? '#6C63FF' : '#1A1B23';
-    }
-  }
-  
   updateOnlineStatus() {
     const offlineNotice = document.getElementById('offline-notice');
     const chatInput = document.getElementById('chat-input');
@@ -767,7 +719,7 @@ class MindEaseApp {
         }
         .notification-success { border-left-color: var(--success); }
         .notification-error { border-left-color: var(--danger); }
-        .notification-info { border-left-color: var(--secondary); }
+        .notification-info { border-left-color: var(--info); }
         .notification-message { 
           flex: 1;
           font-family: var(--font-secondary);
